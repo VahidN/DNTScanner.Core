@@ -17,7 +17,7 @@ You can also view the [package page](http://www.nuget.org/packages/DNTScanner.Co
 Usage
 -----
 - [How to use it with a console application](/DNTScanner.Core.Tests/DNTScanner.ConsoleTestApp/Program.cs)
-- [How to use it wit a web application](/DNTScanner.Core.Tests/DNTScanner.WebTestApps/DNTScanner.ASPNETCoreApp/Controllers/ScannerController.cs)
+- [How to use it with a web application](/DNTScanner.Core.Tests/DNTScanner.WebTestApps/DNTScanner.ASPNETCoreApp/Controllers/ScannerController.cs)
   - Restore the dependencies of DNTScanner.WebTestApps by running _0-restore.bat file.
   - Then run the web application by using the _1-dotnet_run.bat file.
   - Now repeat these steps for the [DNTScanner.WindowsService](/DNTScanner.Core.Tests/DNTScanner.WebTestApps/DNTScanner.WindowsService/Program.cs) application:
