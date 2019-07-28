@@ -1,0 +1,23 @@
+﻿@{
+    var pageTitle = ViewData["Title"] ?? "ASP.NET Core Sample";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@pageTitle</title>
+    <link href="~/css/site.min.css" rel="stylesheet" asp-append-version="true" />
+</head>
+<body>
+    <div class="container mb-5">
+        <div class="row">
+          @RenderBody()
+        </div>
+    </div>
+    <script src="~/js/site.min.js" type="text/javascript" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

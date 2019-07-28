@@ -1,0 +1,21 @@
+{
+  "name": "DNTScanner.Core.testwebapp",
+  "version": "1.0.0",
+  "description": "client side resources of the project",
+  "scripts": {},
+  "author": "VahidN",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/VahidN/DNTScanner.Core.git"
+  },
+  "dependencies": {
+    "@aspnet/signalr": "^1.1.4",
+    "bootstrap": "^4.3.1",
+    "jquery": "^3.4.1",
+    "jquery-ajax-unobtrusive": "^3.2.6",
+    "jquery-validation": "^1.19.1",
+    "jquery-validation-unobtrusive": "^3.2.11",
+    "popper.js": "^1.15.0"
+  }
+}

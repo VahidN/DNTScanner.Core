@@ -1,0 +1,191 @@
+﻿@model NewScanViewModel
+@{
+    ViewData["Title"] = "New Scan";
+}
+
+<div class="container mb-5">
+    <div class="row">
+        <div id="scannerInfo" class="col-md-4">
+            <div id="scannerError" class="alert alert-danger mt-5" style="display:none;">
+                <a href="#" class="close" data-dismiss="alert">×</a>
+                <h4>Error</h4>
+                <div id="errorMessage"></div>
+            </div>
+
+            <div id="newScan" class="card mt-5">
+                <div class="card-header">
+                    <h5 class="card-title">New DNTScan</h5>
+                </div>
+                <div class="card-body">
+                    <partial name="_CustomValidationSummary"/>
+
+                    <div id="connectScannerAlert" class="alert alert-danger mt-1">
+                        <a href="#" class="close" data-dismiss="alert">×</a>
+                        <div>
+                          Please connect your scanner device to the system and then make sure DNTScanner.WindowsService application is running.
+                        </div>
+                    </div>
+
+                    <button id="detectScanner" type="button" class="btn btn-primary col-md-12 mb-3">Detect Scanner</button>
+                    <form
+                        id="doNewScan"
+                        asp-controller="Scanner"
+                        asp-action="DoScan"
+                        method="post"
+                        style="display:none;">
+                        <div class="form-group row">
+                            <label asp-for="Name" class="col-md-5 col-form-label text-md-right"></label>
+                            <div class="col-md-7">
+                                <label id="scannerName">@Model?.Name</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="Source" class="col-md-5 col-form-label text-md-right"></label>
+                            <div class="col-md-7">
+                                <select asp-for="Source" class="form-control"
+                                        asp-items="Html.GetEnumSelectList<SourceType>()">
+                                </select>
+                                <span asp-validation-for="Source" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label asp-for="ColorFormat" class="col-md-5 col-form-label text-md-right"></label>
+                            <div class="col-md-7">
+                                <select asp-for="ColorFormat" class="form-control"
+                                        asp-items="Html.GetEnumSelectList<ColorFormatType>()">
+                                </select>
+                                <span asp-validation-for="ColorFormat" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="FileType" class="col-md-5 col-form-label text-md-right"></label>
+                            <div class="col-md-7">
+                                <select asp-for="FileType" class="form-control"
+                                        asp-items="Html.GetEnumSelectList<FileType>()">
+                                </select>
+                                <span asp-validation-for="FileType" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="Resolution" class="col-md-5 col-form-label text-md-right"></label>
+                            <div class="col-md-7">
+                                <select asp-for="Resolution" class="form-control"
+                                        asp-items="Model?.Resolutions">
+                                </select>
+                                <span asp-validation-for="Resolution" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="Brightness" class="col-md-5 col-form-label text-md-right"></label>
+                            <div class="col-md-7">
+                                <input asp-for="Brightness" class="form-control"/>
+                                <span asp-validation-for="Brightness" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="Contrast" class="col-md-5 col-form-label text-md-right"></label>
+                            <div class="col-md-7">
+                                <input asp-for="Contrast" class="form-control"/>
+                                <span asp-validation-for="Contrast" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <button id="doStartScan" type="button" class="btn btn-success col-md-12 mt-2">Scan</button>
+                        <div id="spinner" style="display:none;" class="lds-ellipsis"><div></div><div></div><div></div><div></div><div></div></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card mt-5">
+                <div class="card-header">
+                    <h5 class="card-title">DNTScan Result</h5>
+                </div>
+                <div class="card-body">
+                    <div id="scannedImages"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(function() {
+            $("#detectScanner").click(function(){
+                $('#spinner').show();
+                $("#scannerError").hide();
+                $.ajax({ type: "POST", url: "/Scanner/DetectScanner" });
+                $('#scannedImages').html("");
+            });
+
+            $("#doStartScan").click(function(){
+                console.log("doStartScan()");
+                $("#scannerError").hide();
+                $('#scannedImages').html("");
+                $('#spinner').show();
+                $.ajax({
+                    type: "POST",
+                    url: "/Scanner/DoScan",
+                    data: $("#doNewScan").serialize(),
+                    complete: function (xhr, status) {
+                    },
+                    success: function (data) {
+                    }
+                });
+            });
+
+            var connection = new signalR.HubConnectionBuilder().withUrl('/ScannerHub').build();
+            connection.on('OnErrorsReceived', function(error){
+               $("#scannerError > #errorMessage").html(error);
+               $("#scannerError").show();
+               $('#spinner').hide();
+            });
+            connection.on('OnScannerSettingsReceived', function (scannerSettings) {
+                console.log(scannerSettings);
+                $("#connectScannerAlert").hide();
+                $("#doNewScan").show();
+                $('#spinner').hide();
+
+                $("#scannerName").text(scannerSettings.name);
+
+                var optionsAsString = "";
+                for(var i = 0; i < scannerSettings.supportedResolutions.length; i++) {
+                    optionsAsString += "<option value='" + scannerSettings.supportedResolutions[i] + "'>" + scannerSettings.supportedResolutions[i] + "</option>";
+                }
+                $('select[name="Resolution"]').html("");
+                $('select[name="Resolution"]').append(optionsAsString);
+            });
+            connection.on('OnScannedImagesReceived', function (file) {
+                console.log(file);
+                $('#scannedImages').prepend($("<a target='_blank' href='"+ file +"'>"+ file +"</a> <a target='_blank' href='"+ file +"'><img src='"+ file +"' alt='"+ file +"' class='mt-3 mb-3' /></a>"));
+                $('#spinner').hide();
+            });
+            connection.on('OnClientDisconnected', function (connectionId) {
+                console.log("OnClientDisconnected: " + connectionId);
+                $("#connectScannerAlert").show();
+                $("#doNewScan").hide();
+                $('#spinner').hide();
+            });
+            connection.on('OnClientConnected', function (connectionId) {
+                console.log("OnClientConnected: " + connectionId);
+                if(connectionId) {
+                  $('#spinner').show();
+                  $("#connectScannerAlert").hide();
+                  $("#detectScanner").click();
+                }
+            });
+            connection.start().then(function () {
+               $('#spinner').show();
+               console.log('connected.');
+               $.ajax({ type: "POST", url: "/Scanner/DetectScanner" });
+            });
+            connection.onclose(function(error){
+               $("#scannerError > #errorMessage").html("Connection disconnected with "+ error + " Please check your connection to the server and then refresh the page.");
+               $("#scannerError").show();
+               $('#spinner').hide();
+            });
+        });
+    </script>
+}

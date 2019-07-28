@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Description>DNTScanner.Core is a .NET 4x and .NET Core 2x+ wrapper for the `Windows` Image Acquisition library.</Description>
+    <VersionPrefix>1.0.0</VersionPrefix>
+    <Authors>Vahid Nasiri</Authors>
+    <TargetFrameworks>net40;netstandard2.0</TargetFrameworks>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <AssemblyName>DNTScanner.Core</AssemblyName>
+    <PackageId>DNTScanner.Core</PackageId>
+    <PackageTags>WIA;Scan;Scanner;.NET Core</PackageTags>
+    <PackageProjectUrl>https://github.com/VahidN/DNTScanner.Core</PackageProjectUrl>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Interop.WIA">
+      <HintPath>..\DNTScanner.Core.TypeLibrary\bin\Debug\Interop.WIA.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
+  </ItemGroup>
+</Project>
