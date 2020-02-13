@@ -68,9 +68,11 @@ namespace DNTScanner.Core
                 }
 
                 var props = new Dictionary<string, object>();
-                foreach (Property item in info.Properties)
+                var infoProperties = info.Properties;
+                for (var j = 1; j <= infoProperties.Count; j++) // Using a regular for loop to avoid `System.IO.FileNotFoundException: Could not load file or assembly CustomMarshalers` in .NET Core 2x apps.
                 {
-                    props.Add(item.Name, item.get_Value());
+                    var property = infoProperties[j];
+                    props.Add(property.Name, property.get_Value());
                 }
                 properties.Add(props);
 
