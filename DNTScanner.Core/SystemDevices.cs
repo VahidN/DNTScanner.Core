@@ -55,25 +55,26 @@ namespace DNTScanner.Core
         /// <summary>
         /// Lists the static properties of scanners connected to the system.
         /// </summary>
-        public static List<IDictionary<string, object>> GetScannerDeviceProperties()
+        public static IList<IDictionary<string, object>> GetScannerDeviceProperties()
         {
-            List<IDictionary<string, object>> properties = new List<IDictionary<string, object>>();
+            var properties = new List<IDictionary<string, object>>();
             var deviceInfos = new DeviceManager().DeviceInfos;
-            foreach(DeviceInfo device in deviceInfos)
+            for (var i = 1; i <= deviceInfos.Count; i++) // Using a regular for loop to avoid `System.IO.FileNotFoundException: Could not load file or assembly CustomMarshalers` in .NET Core 2x apps.
             {
-                if (device.Type != WiaDeviceType.ScannerDeviceType)
+                var info = deviceInfos[i];
+                if (info.Type != WiaDeviceType.ScannerDeviceType)
                 {
                     continue;
                 }
 
-                IDictionary<string, object> props = new Dictionary<string, object>();
-                foreach(Property item in device.Properties)
+                var props = new Dictionary<string, object>();
+                foreach (Property item in info.Properties)
                 {
                     props.Add(item.Name, item.get_Value());
                 }
                 properties.Add(props);
 
-                Marshal.FinalReleaseComObject(device);
+                Marshal.FinalReleaseComObject(info);
             }
             Marshal.FinalReleaseComObject(deviceInfos);
 
