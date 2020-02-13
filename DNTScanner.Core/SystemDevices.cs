@@ -52,6 +52,34 @@ namespace DNTScanner.Core
             return scanners;
         }
 
+        /// <summary>
+        /// Lists the static properties of scanners connected to the system.
+        /// </summary>
+        public static List<IDictionary<string, object>> GetScannerDeviceProperties()
+        {
+            List<IDictionary<string, object>> properties = new List<IDictionary<string, object>>();
+            var deviceInfos = new DeviceManager().DeviceInfos;
+            foreach(DeviceInfo device in deviceInfos)
+            {
+                if (device.Type != WiaDeviceType.ScannerDeviceType)
+                {
+                    continue;
+                }
+
+                IDictionary<string, object> props = new Dictionary<string, object>();
+                foreach(Property item in device.Properties)
+                {
+                    props.Add(item.Name, item.get_Value());
+                }
+                properties.Add(props);
+
+                Marshal.FinalReleaseComObject(device);
+            }
+            Marshal.FinalReleaseComObject(deviceInfos);
+
+            return properties;
+        }
+
         private static IDictionary<string, string> getSupportedTransferFormats(Item scanner)
         {
             var results = new Dictionary<string, string>();
