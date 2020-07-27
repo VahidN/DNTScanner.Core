@@ -13,9 +13,9 @@ namespace DNTScanner.ASPNETCoreApp.Controllers
     public class ScannerController : Controller
     {
         private readonly IHubContext<ScannerHub> _scannerHubContext;
-        private readonly IHostingEnvironment _environment;
+        private readonly IWebHostEnvironment _environment;
 
-        public ScannerController(IHubContext<ScannerHub> scannerHubContext, IHostingEnvironment environment)
+        public ScannerController(IHubContext<ScannerHub> scannerHubContext, IWebHostEnvironment environment)
         {
             _scannerHubContext = scannerHubContext;
             _environment = environment;
@@ -35,7 +35,7 @@ namespace DNTScanner.ASPNETCoreApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> DoScan([FromForm]NewScanViewModel model)
+        public async Task<IActionResult> DoScan([FromForm] NewScanViewModel model)
         {
             await _scannerHubContext.Clients.All.SendAsync("DoScan", model);
             return Ok();

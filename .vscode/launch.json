@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/DNTScanner.Core.Tests/DNTScanner.ConsoleTestApp/bin/Debug/netcoreapp2.2/DNTScanner.ConsoleTestApp.dll",
+            "program": "${workspaceFolder}/DNTScanner.Core.Tests/DNTScanner.ConsoleTestApp/bin/Debug/netcoreapp3.1/DNTScanner.ConsoleTestApp.dll",
             "args": [],
             "cwd": "${workspaceFolder}/DNTScanner.Core.Tests/DNTScanner.ConsoleTestApp",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console

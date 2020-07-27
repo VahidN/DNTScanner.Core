@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DNTScanner.ASPNETCoreApp.Hubs;
+﻿using DNTScanner.ASPNETCoreApp.Hubs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace DNTScanner.ASPNETCoreApp
 {
@@ -26,11 +20,11 @@ namespace DNTScanner.ASPNETCoreApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSignalR();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -45,18 +39,22 @@ namespace DNTScanner.ASPNETCoreApp
 
             app.UseHttpsRedirection();
 
-            app.UseSignalR(routes =>
-            {
-                routes.MapHub<ScannerHub>(path: "/ScannerHub");
-            });
-
             app.UseStaticFiles();
 
-            app.UseMvc(routes =>
+            app.UseRouting();
+
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
+                endpoints.MapHub<ScannerHub>("/ScannerHub");
+            });
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
                     name: "default",
-                    template: "{controller=Scanner}/{action=Index}/{id?}");
+                    pattern: "{controller=Scanner}/{action=Index}/{id?}");
             });
         }
     }
