@@ -12,7 +12,7 @@
   "dependencies": {
     "@microsoft/signalr": "^3.1.6",
     "bootstrap": "^4.3.1",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "jquery-ajax-unobtrusive": "^3.2.6",
     "jquery-validation": "^1.19.3",
     "jquery-validation-unobtrusive": "^3.2.11",
