@@ -10,7 +10,7 @@
     "url": "https://github.com/VahidN/DNTScanner.Core.git"
   },
   "dependencies": {
-    "@microsoft/signalr": "^3.1.6",
+    "@microsoft/signalr": "^7.0.10",
     "bootstrap": "^4.3.1",
     "jquery": "^3.5.0",
     "jquery-ajax-unobtrusive": "^3.2.6",
