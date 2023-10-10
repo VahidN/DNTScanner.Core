@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DNTScanner.WindowsService",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DNTScanner.ASPNETCoreApp", "DNTScanner.Core.Tests\DNTScanner.WebTestApps\DNTScanner.ASPNETCoreApp\DNTScanner.ASPNETCoreApp.csproj", "{4A6DE1E2-3D50-4B1C-BA88-DEDC36912835}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DNTScanner.Core.TypeLibrary", "DNTScanner.Core.TypeLibrary\DNTScanner.Core.TypeLibrary.csproj", "{D0904A18-5865-48DE-8878-EC42BD80061B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +64,18 @@ Global
 		{4A6DE1E2-3D50-4B1C-BA88-DEDC36912835}.Release|x64.Build.0 = Release|Any CPU
 		{4A6DE1E2-3D50-4B1C-BA88-DEDC36912835}.Release|x86.ActiveCfg = Release|Any CPU
 		{4A6DE1E2-3D50-4B1C-BA88-DEDC36912835}.Release|x86.Build.0 = Release|Any CPU
+		{D0904A18-5865-48DE-8878-EC42BD80061B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0904A18-5865-48DE-8878-EC42BD80061B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0904A18-5865-48DE-8878-EC42BD80061B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D0904A18-5865-48DE-8878-EC42BD80061B}.Debug|x64.Build.0 = Debug|Any CPU
+		{D0904A18-5865-48DE-8878-EC42BD80061B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D0904A18-5865-48DE-8878-EC42BD80061B}.Debug|x86.Build.0 = Debug|Any CPU
+		{D0904A18-5865-48DE-8878-EC42BD80061B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0904A18-5865-48DE-8878-EC42BD80061B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0904A18-5865-48DE-8878-EC42BD80061B}.Release|x64.ActiveCfg = Release|Any CPU
+		{D0904A18-5865-48DE-8878-EC42BD80061B}.Release|x64.Build.0 = Release|Any CPU
+		{D0904A18-5865-48DE-8878-EC42BD80061B}.Release|x86.ActiveCfg = Release|Any CPU
+		{D0904A18-5865-48DE-8878-EC42BD80061B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{ECCB2241-8340-4668-A0B7-D647313C2D82} = {59680462-2834-4E8B-9B86-DB73E763F8E0}

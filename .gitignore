@@ -246,3 +246,4 @@ ModelManifest.xml
 .idea/
 /.idea
 DNTScanner.Core.Tests/DNTScanner.WebTestApps/DNTScanner.ASPNETCoreApp/wwwroot/uploads/
+/DNTScanner.Core.Tests/DNTScanner.WebTestApps/DNTScanner.ASPNETCoreApp/wwwroot/lib

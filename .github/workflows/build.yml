@@ -1,0 +1,18 @@
+name: .NET Core Build
+
+on: [push, pull_request]
+
+jobs:
+  build:
+
+    runs-on: windows-2019
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7.0.x
+    - name: Build the lib
+      run: dotnet build ./DNTScanner.Core/DNTScanner.Core.csproj --configuration Release
+      

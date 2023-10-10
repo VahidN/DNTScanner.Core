@@ -1,6 +1,13 @@
 DNTScanner.Core
 =======
 
+<p>
+  <a href="https://github.com/VahidN/DNTScanner.Core">
+     <img alt="GitHub Actions status" src="https://github.com/VahidN/DNTScanner.Core/workflows/.NET%20Core%20Build/badge.svg">
+  </a>
+</p>
+
+
 DNTScanner.Core is a .NET 4x and .NET Core 2x+ wrapper for the `Windows` Image Acquisition library.
 
 Install via NuGet

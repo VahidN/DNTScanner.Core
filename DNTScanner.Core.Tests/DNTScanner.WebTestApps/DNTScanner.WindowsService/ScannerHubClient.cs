@@ -14,7 +14,7 @@ namespace DNTScanner.WindowsService
         void RegisterCallbacks(Action<string> detectScanner, Action<NewScanConfig> doScan);
         Task CallScannerIsNotConnectedError();
         Task StartAsync();
-        Task StopAsync();
+        ValueTask StopAsync();
     }
 
     public class ScannerHubClient : IScannerHubClient
@@ -66,7 +66,7 @@ namespace DNTScanner.WindowsService
             return _hubConnection.StartAsync();
         }
 
-        public Task StopAsync()
+        public ValueTask StopAsync()
         {
             _hubConnection.Closed -= onClosed;
             return _hubConnection.DisposeAsync();
